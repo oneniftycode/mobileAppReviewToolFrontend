@@ -1,0 +1,16 @@
+<div class="top-nav-guide">
+  <span>{{ title }}</span>
+</div>
+<ngx-top-app-info [dynamic]="dynamic" [static]="static" [interactif]="interactif"></ngx-top-app-info>
+<div class="row">
+  <div class="col-12">
+    <ul class="tab-nav">
+      <li [ngClass]="linkURLS&&hover ? 'active' : ''" (mouseover)="hover=false" (mouseout)="hover=true"  routerLink="/pages/reconnaisance/{{ id }}/{{ system }}/urls" class="tab"><a class="tab-link"><span>Urls</span></a></li>
+      <li [ngClass]="linkFirebase&&hover ? 'active' : ''" (mouseover)="hover=false" (mouseout)="hover=true" routerLink="/pages/reconnaisance/{{ id }}/{{ system }}/firebase" class="tab"><a class="tab-link" ><span>Firebase</span></a></li>
+      <li [ngClass]="linkEmail&&hover ? 'active' : ''" (mouseover)="hover=false" (mouseout)="hover=true" class="tab" routerLink="/pages/reconnaisance/{{ id }}/{{ system }}/email"><a class="tab-link"><span>Emails</span></a></li>
+      <li [ngClass]="linkTracker&&hover ? 'active' : ''" (mouseover)="hover=false" (mouseout)="hover=true" class="tab"  routerLink="/pages/reconnaisance/{{ id }}/{{ system }}/tracker"><a class="tab-link"><span>Tracker</span></a></li>
+      <li [ngClass]="linkString&&hover ? 'active' : ''" (mouseover)="hover=false" (mouseout)="hover=true" class="tab"  routerLink="/pages/reconnaisance/{{ id }}/{{ system }}/string"><a class="tab-link"><span>Strings</span></a></li>
+    </ul>
+    <router-outlet></router-outlet>
+  </div>
+</div>

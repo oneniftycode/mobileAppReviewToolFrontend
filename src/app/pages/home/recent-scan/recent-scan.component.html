@@ -1,0 +1,59 @@
+<nb-card *ngFor="let recentScan of recentScans">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="image-container">
+        <div class="image click" (click)="redirectTo(recentScan.md5, recentScan.system)">
+          <img src="http://192.168.2.169:8000{{ recentScan.icon_url }}" width="80px" height="80px">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+
+      <div class="app-info click" (click)="redirectTo(recentScan.md5, recentScan.system)">
+        <div class="app-system"><span>
+            <mat-icon aria-hidden="false">{{ recentScan.system }}</mat-icon>
+          </span></div>
+        <div class="app-details">
+          <div class="app-title"><span>{{ recentScan.app_name }}</span></div>
+          <div *ngIf="!hoverFileName" class="app-version"><span>{{ recentScan.file_name }}</span></div>
+          <div *ngIf="hoverFileName" nbTooltip="{{ recentScan.file_name }}" class="app-version"><span>{{ recentScan.file_name }}</span></div>
+          <div class="app-update"><span>{{ recentScan.date }}</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="app-errors-container">
+        <div class="app-errors">
+          <div class="app-errors-count"><span>{{ recentScan.total_issues }}</span></div>
+          <div class="app-errors-issues"><span>issues</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="chart-container">
+        <div class="chart">
+          <div class="chart-spans">
+            <div class="chart-span"><span>{{ recentScan.cvss_score }}</span></div>
+            <div class="cvss"><span>CVSS</span></div>
+          </div>
+          <ngx-charts-pie-chart [scheme]="colorScheme" [view]="view" [doughnut]="true" [results]="recentScan.charts">
+          </ngx-charts-pie-chart>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="app-scores-container">
+        <div class="app-scores">
+          <div class="app-score"><span>Security Score</span><span class="score">{{ recentScan.security_score }}/100</span></div>
+          <div class="app-score"><span>Trackers Detection</span><span class="score">{{ recentScan.trackers_detected }}</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="scan-action">
+        <mat-icon [nbContextMenu]="items" aria-hidden="false">more_vert</mat-icon>
+        <span nbTooltip="Report status" class="status {{ recentScan.report_status }}">{{ recentScan.report_status }}</span>
+      </div>
+    </div>
+  </div>
+</nb-card>

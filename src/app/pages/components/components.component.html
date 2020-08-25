@@ -1,0 +1,150 @@
+<div class="top-nav-guide">
+  <span>{{ title }}</span>
+</div>
+<ngx-top-app-info [dynamic]="dynamic" [static]="static" [interactif]="interactif"></ngx-top-app-info>
+<ng-template windowClass="components-view" #activitiesTemplate let-data>
+  <table mat-table [dataSource]="data.data" class="components-table">
+    <ng-container matColumnDef='activities'>
+      <th mat-header-cell *matHeaderCellDef> Row </th>
+      <td mat-cell *matCellDef="let element"> {{element.row}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="data.column"></tr>
+    <tr mat-row *matRowDef="let row; columns: data.column;"></tr>
+  </table>
+</ng-template>
+<ng-template windowClass="components-view" #servicesTemplate let-data>
+  <table mat-table [dataSource]="data.data" class="components-table">
+    <ng-container matColumnDef='row'>
+      <th mat-header-cell *matHeaderCellDef> Row </th>
+      <td mat-cell *matCellDef="let element"> {{element.row}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="data.column"></tr>
+    <tr mat-row *matRowDef="let row; columns: data.column;"></tr>
+  </table>
+</ng-template>
+<ng-template windowClass="components-view" #receiversTemplate let-data>
+  <table mat-table [dataSource]="data.data" class="components-table">
+    <ng-container matColumnDef='row'>
+      <th mat-header-cell *matHeaderCellDef> Row </th>
+      <td mat-cell *matCellDef="let element"> {{element.row}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="data.column"></tr>
+    <tr mat-row *matRowDef="let row; columns: data.column;"></tr>
+  </table>
+</ng-template>
+<ng-template windowClass="components-view" #providersTemplate let-data>
+  <table mat-table [dataSource]="data.data" class="components-table">
+    <ng-container matColumnDef='rop'>
+      <th mat-header-cell *matHeaderCellDef> Row </th>
+      <td mat-cell *matCellDef="let element"> {{element.row}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="data.column"></tr>
+    <tr mat-row *matRowDef="let row; columns: data.column;"></tr>
+  </table>
+</ng-template>
+<div class="row">
+  <div class="col-12">
+    <div class="components">
+      <div class="row">
+        <div class="col-4">
+          <div class="components-name article">
+            <div class="components-name-title">
+              <div class="counter" nbTooltip="Total"><span>{{ componentData.activities.total }}</span></div>
+              <div class="name" nbTooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."><span>Activities</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="components-export" nbTooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.">
+            <div class="components-export-title">
+              <div class="counter"><span>{{ componentData.activities.exported }}</span></div>
+              <div class="name"><span>exports</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-2">
+          <div (click)="openActivitiesWindow()" class="components-view" nbTooltip="View related data">
+            <span>View</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="components">
+      <div class="row">
+        <div class="col-4">
+          <div class="components-name service">
+            <div class="components-name-title">
+              <div class="counter" nbTooltip="Total."><span>{{ componentData.services.total }}</span></div>
+              <div class="name" nbTooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."><span>Services</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="components-export" nbTooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.">
+            <div class="components-export-title">
+              <div class="counter"><span>{{ componentData.services.exported }}</span></div>
+              <div class="name"><span>exports</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-2">
+          <div (click)="openServicesWindow()" class="components-view" nbTooltip="View related data">
+            <span>View</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="components">
+      <div class="row">
+        <div class="col-4">
+          <div class="components-name receiver">
+            <div class="components-name-title">
+              <div class="counter" nbTooltip="Total."><span>{{ componentData.receivers.total }}</span></div>
+              <div class="name" nbTooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."><span>Receivers</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="components-export" nbTooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.">
+            <div class="components-export-title">
+              <div class="counter"><span>{{ componentData.receivers.exported }}</span></div>
+              <div class="name"><span>exports</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-2">
+          <div (click)="openReceiversWindow()" class="components-view" nbTooltip="View related data">
+            <span>View</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="components">
+      <div class="row">
+        <div class="col-4">
+          <div class="components-name provider">
+            <div class="components-name-title">
+              <div class="counter" nbTooltip="Total"><span>{{ componentData.providers.total }}</span></div>
+              <div class="name" nbTooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."><span>Providers</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="components-export" nbTooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.">
+            <div class="components-export-title">
+              <div class="counter"><span>{{ componentData.providers.exported }}</span></div>
+              <div class="name"><span>exports</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-2">
+          <div (click)="openProvidersWindow()" class="components-view" nbTooltip="View related data">
+            <span>View</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

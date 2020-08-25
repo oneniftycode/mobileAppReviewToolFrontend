@@ -1,0 +1,76 @@
+@import '../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+:host {
+  $auth-layout-padding: 2.5rem;
+  height: 100%;
+  nb-card {
+    margin: 0;
+    height: calc(100vh - 2 * #{$auth-layout-padding});
+    //alex
+    background: none;
+    border: 0px;
+  }
+
+  .navigation .link {
+    display: inline-block;
+    text-decoration: none;
+
+    nb-icon {
+      font-size: 2rem;
+      vertical-align: middle;
+    }
+  }
+
+  .links nb-icon {
+    font-size: 2.5rem;
+  }
+
+  nb-card-body {
+    width: 100%;
+  }
+
+  nb-auth-block {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  @include media-breakpoint-down(sm) {
+    nb-card {
+      border-radius: 0;
+      height: 100vh;
+    }
+  }
+
+  ::ng-deep {
+    nb-layout .layout .layout-container .content .columns nb-layout-column {
+      padding: $auth-layout-padding;
+
+      @include media-breakpoint-down(sm) {
+        padding: 0;
+      }
+    }
+  }
+  ::ng-deep .auth-container{
+    width: 70%;
+    margin: auto;
+  }
+  @media only screen and (max-width: 400px) {
+    ::ng-deep .auth-container{
+      width: 90%;
+      margin: auto;
+    }
+  }
+  ::ng-deep input{
+    border: none !important;
+    outline: none !important;
+    border-bottom: #D3D8DD !important;
+    border-bottom-style: solid !important;
+    border-bottom-width: 1px !important;
+    border-radius: 0 !important;
+    width: 100% !important;
+  }
+}
+#container{
+  background:white;
+}

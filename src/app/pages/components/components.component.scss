@@ -1,0 +1,100 @@
+@import '../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@include nb-install-component() {
+  nb-card {
+    padding: 22px 0;
+  }
+
+  ::ng-deep nb-tabset .tabset {
+    border-bottom: none;
+  }
+  .components {
+    height: 50px;
+    width: 100%;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,0.08);
+    margin-bottom: 24px;
+  }
+
+  .components-name {
+    height: 50px;
+    width: 100%;
+    border-radius: 4px 0 0 4px;
+    padding: 1rem;
+  }
+
+  .components-name.article {
+    background-color: #109CF1;
+  }
+
+  .components-name.service {
+    background-color: #2ED47A;
+  }
+
+  .components-name.receiver {
+    background-color: #FFB946;
+  }
+
+  .components-name.provider {
+    background-color: #885AF8;
+  }
+
+  .components-name-title {
+    height: 23px;
+    
+    font-size: 15px;
+    letter-spacing: 0.1px;
+    line-height: 23px;
+    display: flex;
+  }
+
+  .components-name-title .counter {
+    width: 45px;
+    font-weight: bold;
+  }
+
+  .components-name-title .name {
+    font-weight: 500;
+  }
+
+  .components-export {
+    padding: 1rem 1rem 1rem 2rem;
+  }
+
+  .components-export-title {
+    display: flex;
+    color: #192A3E;
+    
+    font-size: 15px;
+    letter-spacing: 0.1px;
+    line-height: 23px;
+  }
+
+  .components-export-title .counter {
+    width: 33px;
+    font-weight: bold;
+  }
+
+  .components-export-title .name {
+    font-weight: 500;
+  }
+
+  .components-view {
+    height: 22px;
+    width: 49px;
+    border-radius: 4px;
+    background-color: #109CF1;
+    color: #FFFFFF;
+    
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    line-height: 22px;
+    text-align: center;
+    margin: 1rem 0;
+    cursor: pointer;
+  }
+}

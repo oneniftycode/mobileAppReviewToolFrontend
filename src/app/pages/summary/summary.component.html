@@ -1,0 +1,595 @@
+<div class="top-nav-guide">
+  <span>{{ title }}</span>
+</div>
+<ng-template windowClass="components-view" #activitiesTemplate let-data>
+  <table mat-table [dataSource]="data.data" class="components-table mat-elevation-z8">
+    <ng-container matColumnDef='activities'>
+      <th mat-header-cell *matHeaderCellDef> Row </th>
+      <td mat-cell *matCellDef="let element"> {{element.row}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="data.column"></tr>
+    <tr mat-row *matRowDef="let row; columns: data.column;"></tr>
+  </table>
+</ng-template>
+<ng-template windowClass="components-view" #servicesTemplate let-data>
+  <table mat-table [dataSource]="data.data" class="components-table mat-elevation-z8">
+    <ng-container matColumnDef='row'>
+      <th mat-header-cell *matHeaderCellDef> Row </th>
+      <td mat-cell *matCellDef="let element"> {{element.row}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="data.column"></tr>
+    <tr mat-row *matRowDef="let row; columns: data.column;"></tr>
+  </table>
+</ng-template>
+<ng-template windowClass="components-view" #receiversTemplate let-data>
+  <table mat-table [dataSource]="data.data" class="components-table mat-elevation-z8">
+    <ng-container matColumnDef='row'>
+      <th mat-header-cell *matHeaderCellDef> Row </th>
+      <td mat-cell *matCellDef="let element"> {{element.row}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="data.column"></tr>
+    <tr mat-row *matRowDef="let row; columns: data.column;"></tr>
+  </table>
+</ng-template>
+<ng-template windowClass="components-view" #providersTemplate let-data>
+  <table mat-table [dataSource]="data.data" class="components-table mat-elevation-z8">
+    <ng-container matColumnDef='rop'>
+      <th mat-header-cell *matHeaderCellDef> Row </th>
+      <td mat-cell *matCellDef="let element"> {{element.row}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="data.column"></tr>
+    <tr mat-row *matRowDef="let row; columns: data.column;"></tr>
+  </table>
+</ng-template>
+<ngx-top-app-info [dynamic]="dynamic" [static]="static" [interactif]="interactif"></ngx-top-app-info>
+<div class="row">
+  <div class="col-7">
+    <nb-card class="top">
+      <nb-card-header>
+        <span>Security Analysis Overview</span>
+        <div class="total-issues" *ngIf="system=='android'">
+          <span> {{ securityOverview.totals.total_bina
+                    + securityOverview.totals.total_code
+                    + securityOverview.totals.total_file
+                    + securityOverview.totals.total_mani
+                    + securityOverview.totals.total_perm }} Issues</span>
+        </div>
+        <div class="total-issues" *ngIf="system=='ios'">
+          <span> {{ securityOverview.totals.total_bina
+                    + securityOverview.totals.total_file
+                    + securityOverview.totals.total_ats
+                    + securityOverview.totals.total_perm }} Issues</span>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="sec-overview">
+          <div class="row" *ngIf="system=='android'">
+            <div class="col-4">
+              <div class="title"
+                   nbTooltip="Manifest Overview"
+                   routerLink="/pages/security/{{ id }}/{{ system }}/manifest/all">
+                <span>Manifest Overview</span>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="issues">
+                <div class="total"
+                     nbTooltip="Total of issues"
+                     routerLink="/pages/security/{{ id }}/{{ system }}/manifest/all">
+                  <h3> {{ securityOverview.totals.total_mani }}</h3>
+                  <h4>Total Issues</h4>
+                </div>
+                <div class="issues-sep">
+                  <div class="issue-sep high"
+                       nbTooltip="High"
+                       routerLink="/pages/security/{{ id }}/{{ system }}/manifest/high">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count">
+                      <span>{{ securityOverview.manifest.high }} Issues</span>
+                    </div>
+                  </div>
+                  <div class="issue-sep medium"
+                       nbTooltip="Medium"
+                       routerLink="/pages/security/{{ id }}/{{ system }}/manifest/medium">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count">
+                      <span>{{ securityOverview.manifest.good }} Issues</span>
+                    </div>
+                  </div>
+                  <div class="issue-sep low"
+                       nbTooltip="Low"
+                       routerLink="/pages/security/{{ id }}/{{ system }}/manifest/low">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count">
+                      <span>{{ securityOverview.manifest.info }} Issues</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="system=='ios'">
+            <div class="col-4">
+              <div class="title"
+                   nbTooltip="App Transport Security(ATS) Overview"
+                   routerLink="/pages/security/{{ id }}/{{ system }}/ats/all">
+                <span>App Transport Security Overview</span>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="issues">
+                <div class="total"
+                     nbTooltip="Total of issues"
+                     routerLink="/pages/security/{{ id }}/{{ system }}/ats/all">
+                  <h3> {{ securityOverview.totals.total_ats }}</h3>
+                  <h4>Total Issues</h4>
+                </div>
+                <div class="issues-sep">
+                  <div class="issue-sep high"
+                       nbTooltip="High"
+                       routerLink="/pages/security/{{ id }}/{{ system }}/ats/high">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count">
+                      <span>{{ securityOverview.ats.high }} Issues</span>
+                    </div>
+                  </div>
+                  <div class="issue-sep medium"
+                       nbTooltip="Medium"
+                       routerLink="/pages/security/{{ id }}/{{ system }}/ats/medium">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count">
+                      <span>{{ securityOverview.ats.good }} Issues</span>
+                    </div>
+                  </div>
+                  <div class="issue-sep low"
+                       nbTooltip="Low"
+                       routerLink="/pages/security/{{ id }}/{{ system }}/ats/info">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count">
+                      <span>{{ securityOverview.ats.info }} Issues</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sec-overview" *ngIf="system=='android'">
+          <div class="row">
+            <div class="col-4">
+              <div class="title" nbTooltip="Code Analysis" routerLink="/pages/security/{{ id }}/{{ system }}/code/all">
+                <span>Code Analysis</span>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="issues">
+                <div class="total" nbTooltip="Total of issues" routerLink="/pages/security/{{ id }}/{{ system }}/code/all">
+                  <h3> {{ securityOverview.totals.total_code  }}</h3>
+                  <h4>Total Issues</h4>
+                </div>
+                <div class="issues-sep">
+                  <div class="issue-sep high" nbTooltip="High" routerLink="/pages/security/{{ id }}/{{ system }}/code/high">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.code.high }} Issues</span></div>
+                  </div>
+                  <div class="issue-sep medium" nbTooltip="Warning" routerLink="/pages/security/{{ id }}/{{ system }}/code/warning">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.code.good }} Issues</span></div>
+                  </div>
+                  <div class="issue-sep low" nbTooltip="Info" routerLink="/pages/security/{{ id }}/{{ system }}/code/info">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.code.info }} Issues</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sec-overview">
+          <div class="row">
+            <div class="col-4">
+              <div class="title" nbTooltip="File Analysis" routerLink="/pages/security/{{ id }}/{{ system }}/file/all">
+                <span>File Analysis</span>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="issues">
+                <div class="total"
+                     nbTooltip="Total of issues"
+                     routerLink="/pages/security/{{ id }}/{{ system }}/file/all">
+                  <h3>{{ securityOverview.totals.total_file }}</h3>
+                  <h4>Total Issues</h4>
+                </div>
+                <div class="issues-sep">
+                  <div class="issue-sep high"
+                       nbTooltip="High"
+                       routerLink="/pages/security/{{ id }}/{{ system }}/file/high">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.files.high }} Issues</span></div>
+                  </div>
+                  <div class="issue-sep medium"
+                       nbTooltip="Medium"
+                       routerLink="/pages/security/{{ id }}/{{ system }}/file/good">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.files.good }} Issues</span></div>
+                  </div>
+                  <div class="issue-sep low"
+                       nbTooltip="Low"
+                       routerLink="/pages/security/{{ id }}/{{ system }}/file/info">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.files.info }} Issues</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sec-overview" *ngIf="system=='android'">
+          <div class="row">
+            <div class="col-4">
+              <div class="title" nbTooltip="Binary Analysis" routerLink="/pages/security/{{ id }}/{{ system }}/binary/all">
+                <span>Binary Analysis</span>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="issues">
+                <div class="total" nbTooltip="total of issues" routerLink="/pages/security/{{ id }}/{{ system }}/binary/all">
+                  <h3>{{ securityOverview.totals.total_bina  }}</h3>
+                  <h4>Total Issues</h4>
+                </div>
+                <div class="issues-sep">
+                  <div class="issue-sep high" nbTooltip="High" routerLink="/pages/security/{{ id }}/{{ system }}/binary/high">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.binary.high }} Issues</span></div>
+                  </div>
+                  <div class="issue-sep medium" nbTooltip="Medium" routerLink="/pages/security/{{ id }}/{{ system }}/binary/medium">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.binary.good }} Issues</span></div>
+                  </div>
+                  <div class="issue-sep low" nbTooltip="Low" routerLink="/pages/security/{{ id }}/{{ system }}/binary/low">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.binary.info }} Issues</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sec-overview" *ngIf="system=='ios'">
+          <div class="row">
+            <div class="col-4">
+              <div class="title" nbTooltip="Binary Analysis" routerLink="/pages/security/{{ id }}/{{ system }}/binary/all">
+                <span>Binary Analysis</span>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="issues">
+                <div class="total" nbTooltip="total of issues" routerLink="/pages/security/{{ id }}/{{ system }}/binary/all">
+                  <h3>{{ securityOverview.totals.total_bina  }}</h3>
+                  <h4>Total Issues</h4>
+                </div>
+                <div class="issues-sep">
+                  <div class="issue-sep high" nbTooltip="High" routerLink="/pages/security/{{ id }}/{{ system }}/binary/high">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.binary.high }} Issues</span></div>
+                  </div>
+                  <div class="issue-sep medium" nbTooltip="Medium" routerLink="/pages/security/{{ id }}/{{ system }}/binary/medium">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.binary.good }} Issues</span></div>
+                  </div>
+                  <div class="issue-sep low" nbTooltip="Low" routerLink="/pages/security/{{ id }}/{{ system }}/binary/low">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.binary.info }} Issues</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec-overview">
+          <div class="row">
+            <div class="col-4">
+              <div class="title" nbTooltip="App Permissions" routerLink="/pages/security/{{ id }}/{{ system }}/permissions/all">
+                <span>App Permissions</span>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="issues">
+                <div class="total" nbTooltip="Total of issues" routerLink="/pages/security/{{ id }}/{{ system }}/permissions/all">
+                  <h3>{{ securityOverview.totals.total_perm }}</h3>
+                  <h4>Total Issues</h4>
+                </div>
+                <div class="issues-sep">
+                  <div class="issue-sep high" nbTooltip="High" routerLink="/pages/security/{{ id }}/{{ system }}/permissions/high">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.permissions.high }} Issues</span></div>
+                  </div>
+                  <div class="issue-sep medium" nbTooltip="Medium" routerLink="/pages/security/{{ id }}/{{ system }}/permissions/medium">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.permissions.good }} Issues</span></div>
+                  </div>
+                  <div class="issue-sep low" nbTooltip="Low" routerLink="/pages/security/{{ id }}/{{ system }}/permissions/low">
+                    <mat-icon aria-hidden="false">warning</mat-icon>
+                    <div class="issue-count"><span>{{ securityOverview.permissions.info }} Issues</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sec-overview-more">
+          <div class="more">
+            <span routerLink="/pages/security/{{ id }}/{{ system }}">Show more</span>
+          </div>
+        </div>
+      </nb-card-body>
+
+    </nb-card>
+  </div>
+  <div class="col-5">
+    <nb-card class="top malware">
+      <nb-card-header>
+        <span>Malware Analysis Overview</span>
+        <div class="total-issues">
+<!--          <span>{{ malwareOverview.apkid.apkid_total +-->
+<!--            malwareOverview.domain.total +-->
+<!--            malwareOverview.api.total +-->
+<!--            malwareOverview.activity.total-->
+<!--            }} Issues</span>-->
+          <span>{{ malwareCount }} Issues</span>
+        </div>
+        <div class="issues-severity">
+          <div class="malware-title">
+            <span>Issues Severity</span>
+          </div>
+          <div class="malware-bar">
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="row">
+          <div class="col-12">
+            <div class="domain-title">
+              <span>Domain Malware Analysis</span>
+              <div class="domain-filter">
+                <span>Show: </span>
+                <select>
+                  <option value="0">Map Chart</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-12">
+            <ngx-country-domains [domainAnalysis]="domainAnalysis"></ngx-country-domains>
+          </div>
+          <div class="col-12">
+            <div class="domain-name">
+              <div class="domain-name-title">
+                <span>rapidpassph.firebaseio.com</span>
+              </div>
+              <div class="domain-name-severity bad">
+                <span>Bad</span>
+              </div>
+            </div>
+            <div class="domain-name">
+              <div class="domain-name-title">
+                <span>rapidpassph.firebaseio.com</span>
+              </div>
+              <div class="domain-name-severity bad">
+                <span>Bad</span>
+              </div>
+            </div>
+            <div class="domain-name">
+              <div class="domain-name-title">
+                <span>rapidpassph.firebaseio.com</span>
+              </div>
+              <div class="domain-name-severity bad">
+                <span>Bad</span>
+              </div>
+            </div>
+            <div class="sec-overview-more">
+              <div class="more">
+                <span routerLink="/pages/malware/{{ id }}">Show more</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-7" *ngIf="system === 'android'">
+    <nb-card class="bottom component">
+      <nb-card-header>
+        <span>Components</span>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="components">
+          <div class="row">
+            <div class="col-4">
+              <div class="components-name article">
+                <div class="components-name-title">
+                  <div class="counter" nbTooltip="Total"><span>{{ componentData.activities.total }}</span></div>
+                  <div class="name" nbTooltip="Activities"><span>Activities</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="components-export" nbTooltip="Export">
+                <div class="components-export-title">
+                  <div class="counter"><span>{{ componentData.activities.exported }}</span></div>
+                  <div class="name"><span>exports</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div (click)="openActivitiesWindow()" class="components-view" nbTooltip="View related data">
+                <span>View</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="components">
+          <div class="row">
+            <div class="col-4">
+              <div class="components-name service">
+                <div class="components-name-title">
+                  <div class="counter" nbTooltip="Total."><span>{{ componentData.services.total }}</span></div>
+                  <div class="name" nbTooltip="Services"><span>Services</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="components-export" nbTooltip="Export">
+                <div class="components-export-title">
+                  <div class="counter"><span>{{ componentData.services.exported }}</span></div>
+                  <div class="name"><span>exports</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div (click)="openServicesWindow()" class="components-view" nbTooltip="View related data">
+                <span>View</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="components">
+          <div class="row">
+            <div class="col-4">
+              <div class="components-name receiver">
+                <div class="components-name-title">
+                  <div class="counter" nbTooltip="Total."><span>{{ componentData.receivers.total }}</span></div>
+                  <div class="name" nbTooltip="Receivers"><span>Receivers</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="components-export" nbTooltip="Export">
+                <div class="components-export-title">
+                  <div class="counter"><span>{{ componentData.receivers.exported }}</span></div>
+                  <div class="name"><span>exports</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div (click)="openReceiversWindow()" class="components-view" nbTooltip="View related data">
+                <span>View</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="components">
+          <div class="row">
+            <div class="col-4">
+              <div class="components-name provider">
+                <div class="components-name-title">
+                  <div class="counter" nbTooltip="Total"><span>{{ componentData.providers.total }}</span></div>
+                  <div class="name" nbTooltip="Providers"><span>Providers</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="components-export" nbTooltip="Export">
+                <div class="components-export-title">
+                  <div class="counter"><span>{{ componentData.providers.exported }}</span></div>
+                  <div class="name"><span>exports</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div (click)="openProvidersWindow()" class="components-view" nbTooltip="View related data">
+                <span>View</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-5">
+    <nb-card class="bottom">
+      <nb-card-header>
+        <span>Reconnaissance</span>
+        <div class="total-issues">
+          <span>0 Issues</span>
+        </div>
+        <div class="select-reco">
+          <div class="domain-filter nbselect">
+            <span>Show: </span>
+            <nb-select placeholder="Trackers" outline="false" filled="false" size="tiny" [(selected)]="selectedItem">
+              <nb-option value="tracker">Trackers</nb-option>
+              <nb-option value="firebase">Firebase</nb-option>
+              <nb-option value="url">Urls</nb-option>
+              <nb-option value="email">Emails</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="tab" [ngClass]="selectedItem =='tracker' ? 'show' : ''">
+          <div class="trackers">
+            <div class="tracker-container">
+              <div class="tracker high">
+                <span>Facebook Analysis</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec-overview-more">
+            <div class="more">
+              <span routerLink="/pages/reconnaisance/{{ id }}/{{system}}/tracker">Show more</span>
+            </div>
+          </div>
+        </div>
+        <div class="tab" [ngClass]="selectedItem =='firebase' ? 'show' : ''">
+          <div class="trackers">
+            <div class="tracker-container">
+              <div class="tracker high">
+                <span>Firebase Database</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec-overview-more">
+            <div class="more">
+              <span routerLink="/pages/reconnaisance/{{ id }}/{{system}}/firebase">Show more</span>
+            </div>
+          </div>
+        </div>
+        <div class="tab" [ngClass]="selectedItem =='email' ? 'show' : ''">
+          <div class="trackers">
+            <div class="tracker-container">
+              <div class="tracker high">
+                <span>email@example.com</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec-overview-more">
+            <div class="more">
+              <span routerLink="/pages/reconnaisance/{{ id }}/{{system}}/email">Show more</span>
+            </div>
+          </div>
+        </div>
+        <div class="tab" [ngClass]="selectedItem =='url' ? 'show' : ''">
+          <div class="trackers">
+            <div class="tracker-container">
+              <div class="tracker high">
+                <span>http://localhost</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec-overview-more">
+            <div class="more">
+              <span routerLink='/pages/reconnaisance/{{ id }}/{{system}}/url'>Show more</span>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

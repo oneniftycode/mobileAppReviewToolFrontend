@@ -1,0 +1,378 @@
+<div class="top-nav-guide">
+  <span>{{ title }}</span>
+</div>
+<ngx-top-app-info [dynamic]="dynamic" [static]="static" [interactif]="interactif"></ngx-top-app-info>
+<div class="row">
+  <div class="col-12">
+    <ul class="tab-nav">
+      <li routerLink="/pages/security/{{ id }}/{{ system }}/manifest/all"
+          routerLinkActive="active"
+          [ngClass]="linkManifest&&hover ? 'active' : ''"
+          (mouseover)="hover=false"
+          (mouseout)="hover=true"
+          *ngIf="recentScan.system=='android'"
+          class="tab">
+        <a class="tab-link">
+          <div class="badge">{{ securityOverview.totals.total_mani }}</div> <span>Manifest Analysis</span>
+        </a> </li>
+      <li routerLink="/pages/security/{{ id }}/{{ system }}/ats/all"
+          routerLinkActive="active"
+          [ngClass]="linkPermissions&&hover ? 'active' : ''"
+          (mouseover)="hover=false"
+          (mouseout)="hover=true"
+          *ngIf="recentScan.system=='ios'"
+          class="tab">
+        <a class="tab-link">
+          <div class="badge">{{ securityOverview.totals.total_ats }}</div><span>ATS</span>
+        </a></li>
+      <li routerLink="/pages/security/{{ id }}/{{ system }}/code/all"
+          [ngClass]="linkCode&&hover ? 'active' : ''"
+          (mouseover)="hover=false"
+          (mouseout)="hover=true"
+          *ngIf="recentScan.system=='android'"
+          class="tab">
+        <a class="tab-link">
+          <div class="badge">{{ securityOverview.totals.total_code }}</div><span>Code Analysis</span>
+        </a></li>
+      <li routerLink="/pages/security/{{ id }}/{{ system }}/file/all" [ngClass]="linkFile&&hover ? 'active' : ''" (mouseover)="hover=false" (mouseout)="hover=true" class="tab"><a class="tab-link">
+          <div class="badge">{{ securityOverview.totals.total_file }}</div><span>File Analysis</span>
+        </a></li>
+      <li routerLink="/pages/security/{{ id }}/{{ system }}/binary/all" [ngClass]="linkBinary&&hover ? 'active' : ''" (mouseover)="hover=false" (mouseout)="hover=true" class="tab"><a class="tab-link">
+          <div class="badge">{{ securityOverview.totals.total_bina }}</div><span>Binary Analysis</span>
+        </a></li>
+      <li routerLink="/pages/security/{{ id }}/{{ system }}/permissions/all" [ngClass]="linkPermissions&&hover ? 'active' : ''" (mouseover)="hover=false" (mouseout)="hover=true" class="tab"><a class="tab-link">
+          <div class="badge">{{ securityOverview.totals.total_perm }}</div><span>App Permissions</span>
+        </a></li>
+
+    </ul>
+    <router-outlet></router-outlet>
+    <!-- <nb-card>
+      <nb-tabset>
+        <nb-tab tabTitle="Manifiest Analysis" badgeText="{{ manifestAnalysis.count.total_count }}">
+          <div class="issues-sep">
+            <div class="issue-sep high">
+              <mat-icon aria-hidden="false">warning</mat-icon>
+              <div class="issue-count"><span>{{ manifestAnalysis.count.high }} Issues</span></div>
+            </div>
+            <div class="issue-sep medium">
+              <mat-icon aria-hidden="false">warning</mat-icon>
+              <div class="issue-count"><span>{{ manifestAnalysis.count.medium }} Issues</span></div>
+            </div>
+            <div class="issue-sep low">
+              <mat-icon aria-hidden="false">warning</mat-icon>
+              <div class="issue-count"><span>{{ manifestAnalysis.count.info }} Issues</span></div>
+            </div>
+          </div>
+
+          <div class="table">
+            <table mat-table [dataSource]="dataSourceManifestAnalysis" class="mat-elevation-z8">
+              <ng-container matColumnDef="severity">
+                <th mat-header-cell *matHeaderCellDef>
+                  <span>Severity</span>
+                  <div class="filter">
+                    <nb-select placeholder="Select" [(selected)]="selectedItem" tiny>
+                      <nb-option class="filter-option" value="">All</nb-option>
+                      <nb-option class="filter-option" value="High">High</nb-option>
+                      <nb-option class="filter-option" value="Low">Low</nb-option>
+                      <nb-option class="filter-option" value="Medium">Medium</nb-option>
+                    </nb-select>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <div class="severity-render {{element.severity}}"><span>{{element.severity}}</span></div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="issue">
+                <th mat-header-cell *matHeaderCellDef> Issue </th>
+                <td mat-cell *matCellDef="let element">
+                  <div class="broadcast"><span> Broadcast Receiver</span></div>
+                  <div class="issue"><span>{{element.issue}}</span></div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef> Description </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsManifestAnalysis"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsManifestAnalysis;"></tr>
+            </table>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="Code Analysis" badgeText="{{ fileAnalysis.count.total_count }}">
+          <div class="col-12">
+            <div class="issues-sep">
+              <div class="issue-sep high">
+                <mat-icon aria-hidden="false">warning</mat-icon>
+                <div class="issue-count"><span>{{ codeAnalysis.count.high }} Issues</span></div>
+              </div>
+              <div class="issue-sep medium">
+                <mat-icon aria-hidden="false">warning</mat-icon>
+                <div class="issue-count"><span>{{ codeAnalysis.count.medium }} Issues</span></div>
+              </div>
+              <div class="issue-sep low">
+                <mat-icon aria-hidden="false">warning</mat-icon>
+                <div class="issue-count"><span>{{ codeAnalysis.count.low }} Issues</span></div>
+              </div>
+            </div>
+            <div class="table codeanalysis">
+              <table mat-table [dataSource]="dataSourceCodeAnalysis" class="mat-elevation-z8">
+                <ng-container matColumnDef="severity">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <span>Severity</span>
+                    <div class="filter">
+                      <nb-select placeholder="Select" [(selected)]="selectedItem" tiny>
+                        <nb-option class="filter-option" value="">All</nb-option>
+                        <nb-option class="filter-option" value="High">High</nb-option>
+                        <nb-option class="filter-option" value="Low">Low</nb-option>
+                        <nb-option class="filter-option" value="Medium">Medium</nb-option>
+                      </nb-select>
+                    </div>
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="severity-render {{element.severity}}"><span>{{element.severity}}</span></div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="issue">
+                  <th mat-header-cell *matHeaderCellDef> Issue </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="issue"><span>{{element.issue}}</span></div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cvss">
+                  <th mat-header-cell *matHeaderCellDef> CVSS V2 </th>
+                  <td mat-cell *matCellDef="let element"> <div class="cvss"><span>{{element.cvss}}</span></div></td>
+                </ng-container>
+
+                <ng-container matColumnDef="cwe">
+                  <th mat-header-cell *matHeaderCellDef> CWE </th>
+                  <td mat-cell *matCellDef="let element"> {{element.cwe}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="owasp">
+                  <th mat-header-cell *matHeaderCellDef> OWASP </th>
+                  <td mat-cell *matCellDef="let element"> {{element.owasp}} </td>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="owasmasvs">
+                  <th mat-header-cell *matHeaderCellDef> CWE </th>
+                  <td mat-cell *matCellDef="let element"> {{element.owasmasvs}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="file">
+                  <th mat-header-cell *matHeaderCellDef> File </th>
+                  <td mat-cell *matCellDef="let element"> <div class="file-button"><span>{{element.owasmasvs}}</span></div> </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsFileAnalysis"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsFileAnalysis;"></tr>
+              </table>
+            </div>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="File Analysis" badgeText="{{ fileAnalysis.count.total_count }}">
+          <div class="col-12">
+            <div class="issues-sep">
+              <div class="issue-sep high">
+                <mat-icon aria-hidden="false">warning</mat-icon>
+                <div class="issue-count"><span>{{ fileAnalysis.count.high }} Issues</span></div>
+              </div>
+              <div class="issue-sep medium">
+                <mat-icon aria-hidden="false">warning</mat-icon>
+                <div class="issue-count"><span>{{ fileAnalysis.count.medium }} Issues</span></div>
+              </div>
+              <div class="issue-sep low">
+                <mat-icon aria-hidden="false">warning</mat-icon>
+                <div class="issue-count"><span>{{ fileAnalysis.count.info }} Issues</span></div>
+              </div>
+            </div>
+            <div class="table codeanalysis">
+              <table mat-table [dataSource]="dataSourceFileAnalysis" class="mat-elevation-z8">
+                <ng-container matColumnDef="severity">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <span>Severity</span>
+                    <div class="filter">
+                      <nb-select placeholder="Select" [(selected)]="selectedItem" tiny>
+                        <nb-option class="filter-option" value="">All</nb-option>
+                        <nb-option class="filter-option" value="High">High</nb-option>
+                        <nb-option class="filter-option" value="Low">Low</nb-option>
+                        <nb-option class="filter-option" value="Medium">Medium</nb-option>
+                      </nb-select>
+                    </div>
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="severity-render {{element.severity}}"><span>{{element.severity}}</span></div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="issue">
+                  <th mat-header-cell *matHeaderCellDef> Issue </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="issue"><span>{{element.issue}}</span></div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cvss">
+                  <th mat-header-cell *matHeaderCellDef> CVSS V2 </th>
+                  <td mat-cell *matCellDef="let element"> <div class="cvss"><span>{{element.cvss}}</span></div></td>
+                </ng-container>
+
+                <ng-container matColumnDef="cwe">
+                  <th mat-header-cell *matHeaderCellDef> CWE </th>
+                  <td mat-cell *matCellDef="let element"> {{element.cwe}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="owasp">
+                  <th mat-header-cell *matHeaderCellDef> OWASP </th>
+                  <td mat-cell *matCellDef="let element"> {{element.owasp}} </td>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="owasmasvs">
+                  <th mat-header-cell *matHeaderCellDef> CWE </th>
+                  <td mat-cell *matCellDef="let element"> {{element.owasmasvs}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="file">
+                  <th mat-header-cell *matHeaderCellDef> File </th>
+                  <td mat-cell *matCellDef="let element"> <div class="file-button"><span>{{element.owasmasvs}}</span></div> </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsCodeAnalysis"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsCodeAnalysis;"></tr>
+              </table>
+            </div>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="Binary Analysis" badgeText="{{ binaryAnalysis.count.total_count }}">
+          <div class="col-12">
+            <div class="issues-sep">
+              <div class="issue-sep high">
+                <mat-icon aria-hidden="false">warning</mat-icon>
+                <div class="issue-count"><span>{{ binaryAnalysis.count.high }} Issues</span></div>
+              </div>
+              <div class="issue-sep medium">
+                <mat-icon aria-hidden="false">warning</mat-icon>
+                <div class="issue-count"><span>{{ binaryAnalysis.count.medium }} Issues</span></div>
+              </div>
+              <div class="issue-sep low">
+                <mat-icon aria-hidden="false">warning</mat-icon>
+                <div class="issue-count"><span>{{ binaryAnalysis.count.info }} Issues</span></div>
+              </div>
+            </div>
+            <table mat-table [dataSource]="dataSourceBinaryAnalysis" class="mat-elevation-z8">
+              <ng-container matColumnDef="severity">
+                <th mat-header-cell *matHeaderCellDef>
+                  <span>Severity</span>
+                  <div class="filter">
+                    <nb-select placeholder="Select" [(selected)]="selectedItem" tiny>
+                      <nb-option class="filter-option" value="">All</nb-option>
+                      <nb-option class="filter-option" value="High">High</nb-option>
+                      <nb-option class="filter-option" value="Low">Low</nb-option>
+                      <nb-option class="filter-option" value="Medium">Medium</nb-option>
+                    </nb-select>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <div class="severity-render {{element.severity}}"><span>{{element.severity}}</span></div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="issue">
+                <th mat-header-cell *matHeaderCellDef> Issue </th>
+                <td mat-cell *matCellDef="let element">
+                  <div class="issue"><span>{{element.issue}}</span></div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef> Description </th>
+                <td mat-cell *matCellDef="let element"><span>{{element.description}}</span></td>
+              </ng-container>
+
+              <ng-container matColumnDef="file">
+                <th mat-header-cell *matHeaderCellDef> File </th>
+                <td mat-cell *matCellDef="let element"> <div class="file-button"><span>File</span></div> </td>
+              </ng-container>
+
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsBinaryAnalysis"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsBinaryAnalysis;"></tr>
+            </table>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="App Permissions" badgeText="{{ appPermissions.count.total_count }}">
+          <div class="col-12">
+            <div class="issues-sep">
+              <div class="issue-sep high">
+                <mat-icon aria-hidden="false">warning</mat-icon>
+                <div class="issue-count"><span>{{ appPermissions.count.high }} Issues</span></div>
+              </div>
+              <div class="issue-sep medium">
+                <mat-icon aria-hidden="false">warning</mat-icon>
+                <div class="issue-count"><span>{{ appPermissions.count.medium }} Issues</span></div>
+              </div>
+              <div class="issue-sep low">
+                <mat-icon aria-hidden="false">warning</mat-icon>
+                <div class="issue-count"><span>{{ appPermissions.count.info }} Issues</span></div>
+              </div>
+            </div>
+            <div class="table codeanalysis">
+              <table mat-table [dataSource]="dataAppPermissions" class="mat-elevation-z8">
+                <ng-container matColumnDef="severity">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <span>Severity</span>
+                    <div class="filter">
+                      <nb-select placeholder="Select" [(selected)]="selectedItem" tiny>
+                        <nb-option class="filter-option" value="">All</nb-option>
+                        <nb-option class="filter-option" value="High">High</nb-option>
+                        <nb-option class="filter-option" value="Low">Low</nb-option>
+                        <nb-option class="filter-option" value="Medium">Medium</nb-option>
+                      </nb-select>
+                    </div>
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="severity-render {{element.severity}}"><span>{{element.severity}}</span></div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="permission">
+                  <th mat-header-cell *matHeaderCellDef> Permission </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="issue"><span>{{element.permission}}</span></div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="info">
+                  <th mat-header-cell *matHeaderCellDef> Info </th>
+                  <td mat-cell *matCellDef="let element"><p>{{element.info}}</p></td>
+                </ng-container>
+
+                <ng-container matColumnDef="description">
+                  <th mat-header-cell *matHeaderCellDef> Description </th>
+                  <td mat-cell *matCellDef="let element"> <p>{{element.description}}</p></td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsAppPermissions"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsAppPermissions;"></tr>
+              </table>
+            </div>
+          </div>
+        </nb-tab>
+      </nb-tabset>
+    </nb-card> -->
+  </div>
+
+
+</div>

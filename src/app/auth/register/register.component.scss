@@ -1,0 +1,83 @@
+@import '../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+@include nb-install-component() {
+  margin: auto;
+  .backgroundsignin{
+    background-image: url("/assets/images/signup.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: calc(82vh + 37px);
+    position: absolute;
+    overflow: hidden;
+    right: -9px;
+    top: -17px;
+  }
+  @media only screen and (max-width: 770px) {
+    .backgroundsignin {
+      display: none;
+    }
+  }
+
+  .logo-container {
+    margin-top: 20px;
+  }
+  .logo {
+    font-size: 1.75rem;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  .logo img {
+    width: 114px;
+    height: 27px;
+  }
+  .title{
+    height: 84px;
+    color: #192A3E;
+    
+    font-size: 56px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 84px;
+    margin-bottom: 28px;
+    margin-top: 18px;
+    margin-left: 0px;
+    padding-left: 0px;
+    text-align: left;
+  }
+  .alert-message{
+    height: 20px;
+    
+    font-size: 13px;
+    letter-spacing: 0.1px;
+    line-height: 20px
+  }
+  .alert-message.danger{
+    color: #FF3C5F;
+  }
+  .alert-message.success{
+    color: #00d68f;
+  }
+  .signup-title{
+    margin-bottom: 30px;
+    margin-top: 50px;
+  }
+  .auth-input{
+    padding-left: 0px;background: transparent;
+  }
+  .auth-forgot-password{
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .auth-already{
+    padding-top: 10px;
+    font-size: 13px;
+    margin-bottom: 25px;
+  }
+  .sign-button{
+    text-transform: none;
+  }
+}

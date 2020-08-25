@@ -1,0 +1,238 @@
+<div class="top-nav-guide">
+  <span>{{ title }}</span>
+</div>
+<ngx-top-app-info [dynamic]="dynamic" [static]="static" [interactif]="interactif"></ngx-top-app-info>
+<ng-template windowClass="frida-log" #fridaLog >
+
+</ng-template>
+<div class="row">
+  <div class="col-4">
+    <nb-card>
+      <nb-card-header>
+        <div class="title">
+          <span>Preview</span>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="trackers">
+          <div class="stream"><img (click)="clickEvent($event)" class="fixed-image" [src]="imageBlobUrl"> </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-4">
+    <nb-card class="top">
+      <nb-tabset>
+        <nb-tab tabTitle="Dynamic Analyzer">
+          <div class="logger">
+            <div class="input-container">
+              <div class="input">
+                <div *ngFor="let text of texts" class="log"><span>> {{ text }}</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="frida-script">
+            <div class="title">
+              <span>Frida Scripts</span>
+            </div>
+            <div class="line"></div>
+            <div class="default">
+              <div class="title">
+                <span>Default</span>
+              </div>
+              <div class="actions">
+                <div class="action">
+                  <nb-checkbox class="action-description" (change)="setDefaultStatus($event,'api_monitor')" [checked]="true" value="api_monitor" status="basic">API Monitoring</nb-checkbox>
+                </div>
+                <div class="action">
+                  <nb-checkbox class="action-description" (change)="setDefaultStatus($event,'ssl_pinning_bypass')" [checked]="true" value="ssl_pinning_bypass" status="basic">Root Detection Bypass</nb-checkbox>
+                </div>
+              </div>
+              <div class="actions">
+                <div class="action">
+                  <nb-checkbox class="action-description" (change)="setDefaultStatus($event,'root_bypass')" [checked]="true" value="root_bypass" status="basic">Debugger Check Bypass</nb-checkbox>
+                </div>
+                <div class="action">
+                  <nb-checkbox class="action-description" (change)="setDefaultStatus($event ,'debugger_check_bypass')" [checked]="true" value="debugger_check_bypass" status="basic">SSL Pinning Bypass</nb-checkbox>
+                </div>
+              </div>
+            </div>
+            <div class="default">
+              <div class="title">
+                <span>Auxiliary</span>
+              </div>
+              <div class="actions">
+                <div class="action">
+                  <nb-checkbox class="action-description" (change)="setAuxStatus($event,'string_catch')" value="string_catch" status="basic">Capture strings</nb-checkbox>
+                </div>
+                <div class="action">
+                  <nb-checkbox class="action-description" (change)="setAuxStatus($event,'enum_methods')" value="enum_methods" status="basic">Enamurate Class methods</nb-checkbox>
+                </div>
+              </div>
+              <div class="actions">
+                <div class="action">
+                  <nb-checkbox class="action-description" (change)="setAuxStatus($event,'enum_class')" value="enum_class" status="basic">Enamurate Loaded Classes</nb-checkbox>
+                </div>
+                <div class="action">
+                  <nb-checkbox class="action-description" (change)="setAuxStatus($event,'string_compare')" value="string_compare" status="basic">Capture String Comparaisons</nb-checkbox>
+                </div>
+              </div>
+              <div class="actions noflex">
+                <div class="action noflex">
+                  <nb-checkbox class="action-description" (change)="setAuxStatus($event,'enum_methods')" value="enum_methods" status="basic">Search Class patern</nb-checkbox>
+                  <input class="text" type="text" name="" id="cls_name" value="" placeholder="java.io.File">
+                </div>
+              </div>
+              <div class="actions noflex">
+                <div class="action noflex">
+                  <nb-checkbox class="action-description" (change)="setAuxStatus($event,'trace_class')" value="trace_class" status="basic">Trace Class methods</nb-checkbox>
+                  <input class="text" type="text" name="" value="" id="cls_trace" placeholder="java.net.Socket,java.io.File,java.lang.String">
+                </div>
+              </div>
+              <div class="frida-buttons">
+                <div class="button"><span>Frida Live Logs</span></div>
+                <div class="button" (click)="instrument()"><span>Start Instrumentation</span></div>
+              </div>
+            </div>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="Errors">
+          <div class="logger">
+            <div class="input-container">
+              <div class="input">
+                <div *ngFor="let text of errors" class="log"><span>> {{ text }}</span></div>
+              </div>
+            </div>
+          </div>
+        </nb-tab>
+      </nb-tabset>
+    </nb-card>
+  </div>
+  <!-- Frida Section -->
+  <div class="col-4">
+    <nb-card>
+      <nb-card-header>
+        <div class="title">
+          <span>Frida Code Editor</span>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <ngx-codemirror #codeMirror [options]="codeMirrorOptions" [(ngModel)]="script">
+        </ngx-codemirror>
+        <div class="logger-script">
+          <div class="default">
+            <div class="title frida">
+              <span>Available Scripts</span>
+            </div>
+          </div>
+          <div class="input-script-container">
+            <div class="input-script">
+              <div class="script">
+                <nb-checkbox class="action-description" (change)="setScripts($event,'helper')" value="helper" status="basic">helper</nb-checkbox>
+              </div>
+              <div class="script">
+                <nb-checkbox class="action-description" (change)="setScripts($event,'aes_key')" value="aes_key" status="basic">aes_key</nb-checkbox>
+              </div>
+              <div class="script">
+                <nb-checkbox class="action-description" (change)="setScripts($event,'file_trace')" value="file_trace" status="basic">file_trace</nb-checkbox>
+              </div>
+              <div class="script">
+                <nb-checkbox class="action-description" (change)="setScripts($event,'inputstream_dump')" value="inputstream_dump" status="basic">inputstream_dump</nb-checkbox>
+              </div>
+              <div class="script">
+                <nb-checkbox class="action-description" (change)="setScripts($event,'get_android_id')" value="get_android_id" status="basic">get_android_id</nb-checkbox>
+              </div>
+              <div class="script">
+                <nb-checkbox class="action-description" (change)="setScripts($event,'hook_java_reflection')" value="hook_java_reflection" status="basic">hook_java_reflection</nb-checkbox>
+              </div>
+              <div class="script">
+                <nb-checkbox class="action-description" (change)="setScripts($event,'jni_trace')" value="jni_trace" status="basic">jni_trace</nb-checkbox>
+              </div>
+              <div class="script">
+                <nb-checkbox class="action-description" (change)="setScripts($event,'bypass_flag_secure')" value="bypass_flag_secure" status="basic">bypass_flag_secure</nb-checkbox>
+              </div>
+              <div class="script">
+                <nb-checkbox class="action-description" (change)="setScripts($event,'jni_hook_by_address')" value="jni_hook_by_address" status="basic">jni_hook_by_address</nb-checkbox>
+              </div>
+              <div class="script">
+                <nb-checkbox class="action-description" [checked]="true" (change)="setScripts($event,'default')" value="default" status="basic">default</nb-checkbox>
+              </div>
+              <div class="script">
+                <nb-checkbox class="action-description" (change)="setScripts($event,'hook_constructor')" value="hook_constructor" status="basic">hook_constructor</nb-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frida buttons -->
+        <div class="frida-buttons">
+
+          <!-- Generate Report -->
+          <div class="button" (click)="makeReport()">
+            <span>Generate Report</span>
+          </div>
+        </div><!-- Closes generate report -->
+
+        <!-- Load Scripts -->
+        <div class="frida-buttons">
+          <div class="button" (click)="loadScript()"><span>Load Scripts</span></div>
+        </div><!-- Closes loads scripts-->
+
+      </nb-card-body>
+    </nb-card>
+  </div><!-- Closes Frida Section. -->
+
+  <!-- Testing section -->
+  <div class="col-12">
+    <nb-card >
+      <nb-card-header>
+        <div class="title">
+          <span>Testing</span>
+        </div>
+      </nb-card-header>
+
+        <!-- Testing Buttons -->
+        <div class="ml-3 d-flex flex-row mt-4 frida-buttons">
+          <!-- Open xposed install -->
+          <button class="btn button mr-2" (click)="installXposed()"><span>Install Xposed Tools</span></button>
+          <!-- Monkey Tests -->
+            <button class="btn button mr-2" (click)="monkeyTest()"><span>Monkey Activity Test</span></button>
+          <!-- Activity Tests -->
+          <button class="btn button" (click)="activityTest()"><span>Activity Test</span></button>
+        </div> <!--closes button divs -->
+
+      </nb-card>
+  </div><!-- Closes testing section -->
+
+  <!-- Shell Section -->
+  <div class="col-12">
+    <nb-card class="black">
+      <nb-card-header>
+        <div class="title">
+          <span>Shell Access</span>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="first-line">
+          <span>{{ today | date:'medium' }}</span>
+        </div>
+        <div *ngFor="let cmd of commands"  class="cmd-lines">
+          <div class="cmd-line">
+            <span>[root@android]#</span>
+            <input type="text" name="" value="{{ cmd.request }}" disabled>
+          </div>
+          <div class="cmd-line">
+            <span>{{ cmd.answer }}></span>
+          </div>
+        </div>
+        <div class="cmd-lines">
+
+          <div class="cmd-line">
+            <span>[root@android]#</span>
+            <input (keyup.enter)="adb_cmd($event)" type="text" name="" value="" autofocus>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div><!-- Closes shell section -->

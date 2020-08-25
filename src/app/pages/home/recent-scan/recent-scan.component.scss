@@ -1,0 +1,286 @@
+@import '../../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+@include nb-install-component() {
+  .click {
+    cursor: pointer;
+  }
+
+  .row {
+    height: 100%;
+  }
+
+  nb-card {
+    margin-top: 41px;
+    height: 120px;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 16px 0 rgba(0,0,0,0.14);
+  }
+
+  ::ng-deep .ngx-charts {
+    margin-top: -17px;
+  }
+
+  .report {
+    margin: 22px;
+    display: flex;
+    position: relative;
+  }
+
+  .report > .image {
+    margin-right: 24px;
+  }
+
+  .report > .app-info {}
+
+  .report > .app-errors {}
+
+  .report > .scan-action {
+    float: right;
+    position: absolute;
+    right: 0;
+    height: 80px;
+  }
+
+  .app-system {
+    height: 100%;
+    margin: 0 1rem;
+    width: 10%;
+  }
+
+  .app-system mat-icon {
+    font-size: 200%;
+    line-height: 65px;
+    color: #8f9bb3;
+    height: 50%;
+    position: absolute;
+    left: -25px;
+    top: 25%;
+  }
+
+  .app-info {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .app-title {
+    height: 25px;
+    color: #000000;
+
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 25px;
+  }
+
+  .app-version {
+    color: #2C2C2C;
+
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-top: 5px;
+  }
+
+  .app-update {
+    height: 20px;
+    color: #4C5862;
+
+    font-size: 13px;
+    letter-spacing: 0.1px;
+    line-height: 20px;
+    margin-top: 5px;
+  }
+
+  .app-details {
+    margin: auto 0;
+  }
+
+  .app-errors-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+  }
+
+  .app-errors {
+    margin: auto;
+    display: block;
+  }
+
+  ::ng-deep .ngx-charts {
+    height: 120px;
+    width: 140px;
+    margin-top: -18px;
+  }
+
+  .app-errors-count {
+    height: 58px;
+    color: #2C2C2C;
+
+    font-size: 45px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 58px;
+    text-align: center;
+  }
+
+  .app-errors-issues {
+    height: 10px;
+    color: #A4ABB1;
+
+    font-size: 8px;
+    letter-spacing: 0;
+    line-height: 10px;
+    text-align: center;
+  }
+
+  .app-scores-container,
+  .chart-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+
+  .chart {
+    position: relative;
+    width: 140px;
+    margin: auto;
+  }
+
+  .chart-spans {
+    position: absolute;
+    top: 26px;
+    width: 135px;
+    text-align: center;
+    z-index: 0;
+  }
+
+  .chart-spans span {
+    height: 56.64px;
+    color: #2C2C2C;
+
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: -2.01px;
+    line-height: 39px;
+    text-align: center;
+  }
+
+  ngx-charts-pie-chart {
+    position: relative;
+    z-index: 9;
+  }
+
+  .chart-spans .cvss span {
+    color: #A4ABB1;
+
+    font-size: 8px;
+    letter-spacing: 0;
+    line-height: 10px;
+    text-align: center;
+    position: relative;
+    top: -11px;
+  }
+
+  .app-scores {
+    margin: auto 0;
+    width: 100%;
+  }
+
+  .app-score {
+    height: 30px;
+    width: 80%;
+  }
+
+  .app-score span {
+    color: #2C2C2C;
+
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 25px;
+    float: left;
+  }
+
+  .app-score span.score {
+    color: #7B7B7B;
+
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 25px;
+    float: right;
+  }
+
+  .image-container {
+    width: 100%;
+    height: 100%;
+    display: table;
+  }
+
+  .image {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .image img {
+    margin: 0 auto;
+    display: block;
+  }
+
+  .scan-action {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    position: relative;
+  }
+
+  .scan-action mat-icon {
+    position: absolute;
+    right: 2rem;
+    top: 1rem;
+    color: #8f9bb3;
+    cursor: pointer;
+  }
+
+  .scan-action .status {
+    position: absolute;
+    right: 2rem;
+    bottom: 1.5rem;
+    border: none;
+    height: 22px;
+    width: 56px;
+    border-radius: 4px;
+    color: #FFFFFF;
+
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    text-transform: capitalize;
+  }
+
+  .scan-action .status.warning {
+    background-color: #FFCC67;
+  }
+
+  .scan-action .status.bad {
+    background-color: #F7685B;
+  }
+
+  .scan-action .status.good {
+    background-color: #2ED47A;
+  }
+  @media only screen and (min-width: 1600px) {
+    .app-score {
+      width: 80%;
+    }
+  }
+}

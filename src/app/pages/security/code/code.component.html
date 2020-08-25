@@ -1,0 +1,92 @@
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Files</nb-card-header>
+    <nb-card-body class="file-list-detail">{{data}}</nb-card-body>
+    <nb-card-footer>
+      <div class="close-dialog-container"><div class="close-dialog"><button (click)="ref.close()">Close</button></div></div>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+<div class="row">
+  <div class="col-12">
+    <div class="issues-sep">
+      <div class="issue-sep high">
+        <mat-icon aria-hidden="false">warning</mat-icon>
+        <div class="issue-count"><span>{{ codeAnalysis.count.high }} Issues</span></div>
+      </div>
+      <div class="issue-sep medium">
+        <mat-icon aria-hidden="false">warning</mat-icon>
+        <div class="issue-count"><span>{{ codeAnalysis.count.medium }} Issues</span></div>
+      </div>
+      <div class="issue-sep low">
+        <mat-icon aria-hidden="false">warning</mat-icon>
+        <div class="issue-count"><span>{{ codeAnalysis.count.low }} Issues</span></div>
+      </div>
+    </div>
+    <div class="table codeanalysis">
+      <table mat-table [dataSource]="dataSourceCodeAnalysis" class="mat-elevation-z8">
+        <ng-container matColumnDef="severity">
+          <th mat-header-cell *matHeaderCellDef>
+            <span>Severity</span>
+            <div class="filter">
+              <nb-select placeholder="Select" [(selected)]="selectedItem" (selectedChange)="doWhatEverOnChange()">
+                <nb-option class="filter-option" value="">All</nb-option>
+                <nb-option class="filter-option" value="high">High</nb-option>
+                <nb-option class="filter-option" value="medium">Medium</nb-option>
+                <nb-option class="filter-option" value="low">Low</nb-option>
+              </nb-select>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="severity-render {{element.severity.toLowerCase()}}"><span>{{element.severity}}</span></div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="issue">
+          <th mat-header-cell *matHeaderCellDef> Issue </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="issue"><span>{{element.issue}}</span></div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cvss">
+          <th mat-header-cell *matHeaderCellDef> CVSS V2 </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="cvss"><span>{{element.cvss}}</span></div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cwe">
+          <th mat-header-cell *matHeaderCellDef> CWE </th>
+          <td mat-cell *matCellDef="let element"> {{element.cwe}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="owasp">
+          <th mat-header-cell *matHeaderCellDef> OWASP </th>
+          <td mat-cell *matCellDef="let element"> {{element.owasp}} </td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="owasmasvs">
+          <th mat-header-cell *matHeaderCellDef> CWE </th>
+          <td mat-cell *matCellDef="let element"> {{element.owasmasvs}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="file">
+          <th mat-header-cell *matHeaderCellDef> File </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="file-button" (click)="open(dialog, element.file)"><span>File</span></div>
+          </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsCodeAnalysis"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsCodeAnalysis;"></tr>
+      </table>
+      <div class="empty-table" *ngIf="emptyCheck">No data</div>
+    </div>
+  </div>
+
+</div>

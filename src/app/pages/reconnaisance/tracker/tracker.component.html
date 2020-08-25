@@ -1,0 +1,34 @@
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Urls</nb-card-header>
+    <nb-card-body>{{ data }}</nb-card-body>
+    <nb-card-footer>
+      <div class="close-dialog-container"><div class="close-dialog"><button (click)="ref.close()">Close</button></div></div>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+<div class="row">
+  <div class="col-12">
+    <div class="table codeanalysis">
+      <table mat-table [dataSource]="dataSourceTracker" class="mat-elevation-z8">
+        <ng-container matColumnDef="tracker">
+          <th mat-header-cell *matHeaderCellDef> Tracker </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="issue"><span>{{element.tracker}}</span></div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="link">
+          <th mat-header-cell *matHeaderCellDef> Url </th>
+          <td mat-cell *matCellDef="let element">
+            <div (click)="open(dialog, element.link)" class="file-button"><span>View Url</span></div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsTracker"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsTracker;"></tr>
+      </table>
+      <div class="empty-table" *ngIf="emptyCheck">No data</div>
+    </div>
+  </div>
+</div>

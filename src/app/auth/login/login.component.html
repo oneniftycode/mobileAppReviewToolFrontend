@@ -1,0 +1,123 @@
+<div class="row">
+  <div class="col-sm-12 col-md-6">
+    <div class="auth-container">
+
+      <!-- <p class="sub-title">Hello! Log in with your email.</p> -->
+      <div class="logo-container">
+        <a class="logo"><img src="assets/images/logo.png"></a>
+      </div>
+      <h1 id="title" class="title login-title"
+      >Sign In</h1>
+
+
+      <form (ngSubmit)="login()" #form="ngForm" aria-labelledby="title">
+
+        <div class="form-control-group">
+          <input nbInput
+                 fullWidth
+                 [(ngModel)]="user.email"
+                 #email="ngModel"
+                 name="email"
+                 id="input-email"
+                 pattern=".+@.+\..+"
+                 placeholder="Email"
+                 autofocus
+                 [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
+                 [required]="getConfigValue('forms.validation.email.required')"
+                 [attr.aria-invalid]="email.invalid && email.touched ? true : null"
+                 class="auth-input"
+          >
+          <ng-container *ngIf="email.invalid && email.touched">
+            <p class="alert-message danger" *ngIf="email.errors?.required">
+              Email is required!
+            </p>
+            <p class="alert-message danger" *ngIf="email.errors?.pattern">
+              Email should be the real one!
+            </p>
+          </ng-container>
+        </div>
+
+        <div class="form-control-group">
+          <input nbInput
+                 fullWidth
+                 [(ngModel)]="user.password"
+                 #password="ngModel"
+                 name="password"
+                 type="password"
+                 id="input-password"
+                 placeholder="Password"
+                 [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''"
+                 [required]="getConfigValue('forms.validation.password.required')"
+                 [minlength]="getConfigValue('forms.validation.password.minLength')"
+                 [maxlength]="getConfigValue('forms.validation.password.maxLength')"
+                 [attr.aria-invalid]="password.invalid && password.touched ? true : null"
+                 class="auth-input"
+          >
+          <ng-container *ngIf="password.invalid && password.touched ">
+            <p class="alert-message danger" *ngIf="password.errors?.required">
+              Password is required!
+            </p>
+            <p class="alert-message danger" *ngIf="password.errors?.minlength || password.errors?.maxlength">
+              Password should contains
+              from {{ getConfigValue('forms.validation.password.minLength') }}
+              to {{ getConfigValue('forms.validation.password.maxLength') }}
+              characters
+            </p>
+          </ng-container>
+        </div>
+
+        <div class="form-control-group accept-group row">
+          <nb-checkbox name="rememberMe" [(ngModel)]="user.rememberMe" *ngIf="rememberMe">Remember me</nb-checkbox>
+          <a  routerLink="../request-password" class="auth-forgot-password">Forgot Password?</a>
+        </div>
+
+        <button nbButton
+                fullWidth
+                status="info"
+                [disabled]="submitted || !form.valid"
+                [class.btn-pulse]="submitted"
+                class="sign-button"
+        >
+          Sign In
+        </button>
+      </form>
+
+      <nb-alert *ngIf="showMessages.error && errors?.length && !submitted">
+        <ul class="alert-message-list">
+          <li *ngFor="let error of errors" class="alert-message danger">{{ error }}</li>
+        </ul>
+      </nb-alert>
+
+      <nb-alert *ngIf="showMessages.success && messages?.length && !submitted">
+        <ul class="alert-message-list">
+          <li *ngFor="let message of messages" class="alert-message success">{{ message }}</li>
+        </ul>
+      </nb-alert>
+      <section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">
+        or enter with:
+        <div class="socials">
+          <ng-container *ngFor="let socialLink of socialLinks">
+            <a *ngIf="socialLink.link"
+               [routerLink]="socialLink.link"
+               [attr.target]="socialLink.target"
+               [attr.class]="socialLink.icon"
+               [class.with-icon]="socialLink.icon">{{ socialLink.title }}</a>
+            <a *ngIf="socialLink.url"
+               [attr.href]="socialLink.url"
+               [attr.target]="socialLink.target"
+               [attr.class]="socialLink.icon"
+               [class.with-icon]="socialLink.icon">{{ socialLink.title }}</a>
+          </ng-container>
+        </div>
+      </section>
+
+      <div class="auth-already">
+        Don't have an account? <a routerLink="../register" class="text-decoration-none"><strong>Register</strong></a>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-6">
+    <div class="backgroundsignin"></div>
+  </div>
+</div>

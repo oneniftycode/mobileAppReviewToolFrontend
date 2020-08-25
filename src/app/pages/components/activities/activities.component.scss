@@ -1,0 +1,7 @@
+@import '../../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@include nb-install-component() {
+
+}

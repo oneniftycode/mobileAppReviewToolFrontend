@@ -1,0 +1,251 @@
+@import '../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@include nb-install-component() {
+  width: 100%;
+  height: 100%;
+
+  nb-card {
+    padding: 22px 0;
+    width: 100%;
+    height: calc(100% - 20px);
+  }
+
+  nb-card.top {
+    padding: 0;
+  }
+
+  nb-card.black {
+    background: #171717;
+    box-shadow: 0 6px 18px 0 rgba(0,0,0,0.06);
+    border-radius: 4px;
+    height: 300px;
+  }
+
+  .stream {
+    width: 100%;
+    display: flex;
+  }
+
+  .stream img {
+    margin: auto;
+    height: 523px;
+    position: relative;
+    top: 48px;
+    width: 295px;
+  }
+
+  nb-card.black .title {
+    font-size: 13px;
+    color: #F3F4F6;
+    letter-spacing: 0;
+    line-height: 20px;
+  }
+
+  .title {
+    margin-bottom: 11px;
+  }
+
+  nb-card-header {
+    line-height: 21px;
+    padding: 0 1.5rem;
+    border-bottom: 1px solid #EBEFF2;
+  }
+
+  nb-card.black nb-card-header {
+    border-bottom: none;
+  }
+
+  nb-card-body {
+    padding: 0 8px;
+  }
+
+  .trackers {
+    width: 100%;
+    height: 95%;
+    background-image: url("/assets/images/phone.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin-top: 21px;
+  }
+
+  .input-container,
+  .input-script-container {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #EBEFF2;
+    width: 100%;
+    height: 150px;
+    overflow-x: overlay;
+  }
+
+  .input-script-container {
+    padding: 1rem 1.5rem;
+    margin: 11px 0;
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #A6B1BF;
+    border-radius: 25%;
+  }
+
+  ::ng-deep .tab-link {
+    font-size: 13px;
+    color: #334D6E !important;
+    letter-spacing: 0;
+    line-height: 20px;
+    display: block !important;
+  }
+
+  ::ng-deep .tab-link::before {
+    display: none !important;
+  }
+
+  ::ng-deep .CodeMirror {
+    height: 350px;
+    margin-top: 21px;
+    border-radius: 4px;
+  }
+
+  .input {
+    font-size: 12px;
+    color: #707683;
+    letter-spacing: 0;
+    line-height: 19px;
+    text-align: left;
+  }
+
+  .frida-script {
+    margin-top: 21px;
+  }
+
+  .frida-script > .title {
+    font-size: 13px;
+    color: #334D6E;
+    letter-spacing: 0;
+    line-height: 20px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  .frida-script .line {
+    border: 1px solid #EBEFF2;
+    margin: 0 -32px;
+  }
+
+  .default .title {
+    font-size: 13px;
+    color: #707683;
+    letter-spacing: 0;
+    line-height: 20px;
+    margin-top: 21px;
+    border-bottom: 1px solid #EBEFF2;
+    font-weight: 700;
+  }
+
+  nb-checkbox ::ng-deep .text {
+    font-size: 12px;
+    font-weight: 400;
+    color: #707683;
+    letter-spacing: 0;
+  }
+
+  .action,
+  .actions {
+    display: flex;
+  }
+
+  .action {
+    flex: 0 50%;
+  }
+
+  .action.noflex,
+  .actions.noflex {
+    display: grid;
+    flex: 1;
+    width: 100%;
+    margin-top: 5px;
+  }
+
+  .actions {
+    margin-top: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #707683;
+    letter-spacing: 0;
+    line-height: 20px;
+  }
+
+  .action input.text {
+    border: 1px solid #EBEFF2;
+    border-radius: 4px;
+    padding: 5px;
+  }
+
+  .action input.text::placeholder {
+    opacity: 0.42;
+    font-size: 8px;
+    color: #707683;
+    letter-spacing: 0;
+    line-height: 25px;
+  }
+
+  .frida-buttons {
+    width: 100%;
+  }
+
+  .frida-buttons .button {
+    float: right;
+    padding: 0.75rem;
+    cursor: pointer;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0.11px;
+    text-align: center;
+    line-height: 20px;
+    background: #109CF1;
+    border-radius: 4px;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+
+  .default .title.frida {
+    padding: 0 1.25rem;
+    border: none;
+  }
+
+  .first-line {
+    font-size: 13px;
+    color: #FF7BA1;
+    letter-spacing: 0;
+    line-height: 19px;
+  }
+
+  .cmd-lines {
+    margin-top: 21px;
+  }
+
+  .cmd-line {
+    font-size: 13px;
+    color: #E7FFC6;
+    letter-spacing: 0;
+    line-height: 19px;
+    margin-top: 5px;
+  }
+
+  .cmd-line input {
+    background-color: transparent;
+    border: none;
+    color: #E7FFC6;
+    width: 70%;
+  }
+  .log{
+    margin-bottom: 5px;
+  }
+}

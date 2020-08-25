@@ -1,0 +1,36 @@
+<!-- Opens top nav guide -->
+<div class="top-nav-guide">
+    <span>Dynamic Analysis > {{ title }}</span>
+</div> <!-- Closes top nav guide -->
+
+<ngx-top-app-info [dynamic]="dynamic" [static]="static" [interactif]="interactif"></ngx-top-app-info>
+
+<!-- Opens Report Menu -->
+<div class="row pb-2">
+    <div class="col-12">
+      <ul class="tab-nav">
+        <li routerLink="/pages/dynamic_report/{{ id }}/{{ system }}/ipc" (mouseover)="hover=false" (mouseout)="hover=true" [ngClass]="link_binder&&hover ? 'active' : ''" class="tab"><a class="tab-link"><div class="badge">0</div><span>Binder</span></a></li>
+        <li routerLink="/pages/dynamic_report/{{ id }}/{{ system }}/app_data" (mouseover)="hover=false" (mouseout)="hover=true" [ngClass]="link_app_data&&hover ? 'active' : ''" class="tab"><a class="tab-link"><div class="badge">0</div><span>App Data</span></a></li>
+        <li routerLink="/pages/dynamic_report/{{ id }}/{{ system }}/xml" (mouseover)="hover=false" (mouseout)="hover=true" [ngClass]="link_xml&&hover ? 'active' : ''" class="tab"><a class="tab-link"><div class="badge">0</div><span>IPC</span></a></li>
+      </ul>
+      <h5 class="text-center">No data</h5>
+      <router-outlet></router-outlet>
+  </div>
+</div> <!-- Closes report menu -->
+
+<!-- Temporary, make me look good, for now -->
+<div class="jumbotron shadow-md" style="background: white;">
+  <div>
+    <nb-card style="border: none;">
+      <nb-card-body>
+        <h4 class="text-left">About Dynamic Analysis</h4>
+        Dynamic analysis is one the many testing and evaluations security professionals utilize in their day to day work.
+        The main objective of this type of analysis is to find errors in a program while it is running, rather than by doing manual code review.
+        Dynamic Analsysis tests a program by executing it's functions and services in real-time. The objective is to find possible malfunctioning services
+        and expose security holes.
+      </nb-card-body>
+    </nb-card>
+  </div> <!-- Ends temporary spree -->
+  <h2 class="text-right" style="text-decoration: underline; text-decoration-color: yellow;">UNDER DEVELOPMENT!</h2>
+</div>
+

@@ -1,0 +1,92 @@
+<div class="row">
+
+  <div class="col-12" >
+    <div class="issues-sep" *ngIf="system=='android'">
+      <div class="issue-sep high">
+        <mat-icon aria-hidden="false">warning</mat-icon>
+        <div class="issue-count"><span>{{ appPermissions.count.high }} Issues</span></div>
+      </div>
+      <div class="issue-sep medium">
+        <mat-icon aria-hidden="false">warning</mat-icon>
+        <div class="issue-count"><span>{{ appPermissions.count.medium }} Issues</span></div>
+      </div>
+      <div class="issue-sep low">
+        <mat-icon aria-hidden="false">warning</mat-icon>
+        <div class="issue-count"><span>{{ appPermissions.count.info }} Issues</span></div>
+      </div>
+    </div>
+    <div class="issues-sep" *ngIf="system=='ios'">
+      <div class="issue-sep high">
+        <mat-icon aria-hidden="false">warning</mat-icon>
+        <div class="issue-count"><span>{{ appPermissions.count.danger }} Issues</span></div>
+      </div>
+      <div class="issue-sep low">
+        <mat-icon aria-hidden="false">warning</mat-icon>
+        <div class="issue-count"><span>{{ appPermissions.count.good }} Issues</span></div>
+      </div>
+    </div>
+    <div class="table codeanalysis">
+      <table mat-table [dataSource]="dataAppPermissions" class="mat-elevation-z8" >
+        <ng-container matColumnDef="severity" *ngIf="system=='android'">
+          <th mat-header-cell *matHeaderCellDef>
+            <span>Severity</span>
+            <div class="filter">
+              <nb-select placeholder="Select" [(selected)]="selectedItem" (selectedChange)="doWhatEverOnChange()">
+                <nb-option class="filter-option" value="">All</nb-option>
+                <nb-option class="filter-option" value="high">High</nb-option>
+                <nb-option class="filter-option" value="low">Low</nb-option>
+                <nb-option class="filter-option" value="medium">Medium</nb-option>
+              </nb-select>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="severity-render {{element.severity}}"><span>{{element.severity}}</span></div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="severity" *ngIf="system=='ios'">
+          <th mat-header-cell *matHeaderCellDef>
+            <span>Status</span>
+            <div class="filter">
+              <nb-select placeholder="Select" [(selected)]="selectedItem" (selectedChange)="doWhatEverOnChange()">
+                <nb-option class="filter-option" value="">All</nb-option>
+                <nb-option class="filter-option" value="high">High</nb-option>
+                <nb-option class="filter-option" value="low">Low</nb-option>
+              </nb-select>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="severity-render {{element.severity}}"><span>{{element.severity}}</span></div>
+          </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="permission">
+          <th mat-header-cell *matHeaderCellDef> Permission </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="issue"><span>{{element.permission}}</span></div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="info" *ngIf="system=='android'">
+          <th mat-header-cell *matHeaderCellDef> Info </th>
+          <td mat-cell *matCellDef="let element"><p>{{element.info}}</p></td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let element"> <p>{{element.description}}</p></td>
+        </ng-container>
+
+        <ng-container matColumnDef="info" *ngIf="system=='ios'">
+          <th mat-header-cell *matHeaderCellDef> Reason </th>
+          <td mat-cell *matCellDef="let element"><p>{{element.info}}</p></td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsAppPermissions"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsAppPermissions;"></tr>
+      </table>
+      <div class="empty-table" *ngIf="emptyCheck">No data</div>
+
+    </div>
+  </div>
+</div>

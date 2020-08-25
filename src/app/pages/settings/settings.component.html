@@ -1,0 +1,59 @@
+<div class="top-nav-guide"><span>{{ title }}</span></div>
+<div class="row setting-container">
+  <div class="col-md-12 col-lg-4">
+    <div >
+      <nb-card >
+        <nb-card-body class="p-0">
+          <nb-menu tag="menu" [items]="items" class="setting-menu" ></nb-menu>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  <div class="col-sm-12 col-lg-8">
+    <nb-card>
+      <nb-card-header>
+        <div class="support-title">
+          <span>Notifications preferences</span>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="setting-item">
+          <div>
+            <p class="subtitle title">Browser tab notifications</p>
+            <p class="caption-2 item-title">Display a count of new messaged in the browser tab.</p>
+          </div>
+          <nb-checkbox></nb-checkbox>
+        </div>
+        <div class="setting-item">
+          <div>
+            <p class="subtitle title">Email notifications</p>
+            <div class="profile-item">
+              <p class="caption item-title">Email</p>
+              <span>s.ferguson@gmail.com</span>
+            </div>
+          </div>
+          <nb-checkbox></nb-checkbox>
+        </div>
+        <div class="setting-item">
+          <div>
+            <p class="subtitle title">Automaticale disable email notifications</p>
+            <div class="row pl-3">
+              <div class="profile-item mr-1">
+                <p class="caption item-title">from</p>
+                <ngb-timepicker [(ngModel)]="time" size="small"></ngb-timepicker>
+              </div>
+              <div class="profile-item">
+                <p class="caption item-title">to</p>
+                <ngb-timepicker [(ngModel)]="time" size="small"></ngb-timepicker>
+              </div>
+            </div>
+
+          </div>
+          <nb-checkbox></nb-checkbox>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<!--<router-outlet></router-outlet>-->
+

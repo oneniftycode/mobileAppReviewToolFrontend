@@ -1,0 +1,473 @@
+<!-- Static pages sidebar -->
+<nb-sidebar *ngIf="static" state="expanded" class="menu-sidebar-report" tag="nbmenu" fixed>
+  <div class="container">
+    <ul class="nav navbar-nav">
+      <li [ngClass]="linkSummary&&hover ? 'active' : ''"
+          (mouseover)="hover=false"
+          (mouseout)="hover=true"
+          class="route-tab">
+        <a class="tab-link"
+           routerLink="/pages/summary/{{ id }}/{{ system }}">
+          <img class="not-selected"
+            src="assets/images/summery.png">
+          <img class="selected"
+               src="assets/images/summery-selected.png">
+          <span>Summary</span></a></li>
+      <li [ngClass]="linkSecurity&&hover ? 'active' : ''"
+          (mouseover)="hover=false"
+          (mouseout)="hover=true"
+          class="route-tab">
+        <a class="tab-link"
+           routerLink="/pages/security/{{ id }}/{{ system }}/manifest/all"
+           *ngIf="system=='android'">
+          <img class="not-selected"
+            src="assets/images/security.png">
+          <img class="selected"
+               src="assets/images/security-selected.png">
+          <span>Security Analysis</span>
+        </a>
+        <a class="tab-link"
+           routerLink="/pages/security/{{ id }}/{{ system }}/ats/all"
+           *ngIf="system=='ios'">
+          <img class="not-selected"
+            src="assets/images/security.png">
+          <img class="selected"
+               src="assets/images/security-selected.png">
+          <span>Security Analysis</span>
+        </a>
+      </li>
+      <li [ngClass]="linkMalware&&hover ? 'active' : ''"
+          (mouseover)="hover=false"
+          (mouseout)="hover=true"
+          class="route-tab">
+        <a class="tab-link" *ngIf="system=='android'"
+           routerLink="/pages/malware/{{ id }}/{{ system }}/apkid">
+          <img class="not-selected"
+            src="assets/images/malware.png">
+          <img class="selected"
+               src="assets/images/malware-selected.png">
+          <span>Malware Analysis</span>
+        </a>
+        <a class="tab-link" *ngIf="system=='ios'"
+           routerLink="/pages/malware/{{ id }}/{{ system }}/domain">
+          <img class="not-selected"
+            src="assets/images/malware.png">
+          <img class="selected"
+               src="assets/images/malware-selected.png">
+          <span>Malware Analysis</span>
+        </a>
+      </li>
+      <li [ngClass]="linkReconnaissance&&hover ? 'active' : ''"
+          (mouseover)="hover=false"
+          (mouseout)="hover=true"
+          class="route-tab">
+        <a class="tab-link"
+           routerLink="/pages/reconnaisance/{{ id }}/{{ system }}">
+          <img class="not-selected"
+               src="assets/images/reconnaissance.png">
+          <img class="selected"
+               src="assets/images/reconnaissance-selected.png">
+          <span>Reconnaissance</span>
+        </a>
+      </li>
+      <li [ngClass]="linkComponent&&hover ? 'active' : ''"
+          (mouseover)="hover=false"
+          (mouseout)="hover=true"
+          class="route-tab">
+        <a class="tab-link"
+           routerLink="/pages/components/{{ id }}/{{ system }}">
+          <img class="not-selected"
+               src="assets/images/components-selected.png">
+          <img class="selected"
+               src="assets/images/components.png">
+          <span>Components</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nb-sidebar><!-- end static pages sidebar -->
+<!-- Dynamic Pages sidebar -->
+<nb-sidebar *ngIf="dynamic" state="expanded" class="menu-sidebar-report" tag="nbmenu" fixed>
+  <div class="container">
+    <ul class="nav navbar-nav">
+      <li [ngClass]="linkFrinda&&hover ? 'active' : ''" (mouseover)="hover=false" (mouseout)="hover=true" class="route-tab"><a class="tab-link" routerLink="/pages/dynamic_report/{{ id }}/{{ system }}"><img class="not-selected"
+            src="assets/images/summery.png"> <img class="selected" src="assets/images/summery-selected.png"><span>Dynamic Analysis</span></a></li>
+      <li [ngClass]="linkDynamicMalware&&hover ? 'active' : ''" (mouseover)="hover=false" (mouseout)="hover=true" class="route-tab"><a class="tab-link" routerLink="/pages/dynamic_malware/{{ id }}/{{ system }}"><img class="not-selected"
+            src="assets/images/security.png"> <img class="selected" src="assets/images/security-selected.png"><span>Malware Analysis</span></a></li>
+      <!--
+      <li [ngClass]="linkInteractif&&hover ? 'active' : ''" (mouseover)="hover=false" (mouseout)="hover=true" class="route-tab"><a class="tab-link" routerLink="/pages/interactif/{{ id }}/{{ system }}"><img class="not-selected"
+            src="assets/images/interactive.png"> <img class="selected" src="assets/images/interactive.png"><span>Interactive</span></a></li>
+      -->
+      </ul>
+  </div>
+</nb-sidebar> <!-- End Dynamic Pages Sidebar -->
+<!-- Top action menu -->
+<div class="top-action">
+  <div class="top-action-container">
+    <button *ngIf="!newScan" (click)="toggleNewScan()" class="new_scan">New Scan</button>
+    <button *ngIf="newScan" (click)="toggleNewScan()" class="new_scan cancel">Cancel</button>
+    <button class="view_dc" routerLink="/pages/interactif/{{ id }}/{{ system }}">Interact with App</button>
+    <button class="view_dc" *ngIf="static" routerLink="/pages/dynamic_report/{{ id }}/{{ system }}">View Dynamic Scan</button>
+    <button class="view_dc" *ngIf="dynamic" routerLink="/pages/summary/{{ id }}/{{ system }}">View Static Scan</button>
+    <button [nbContextMenu]="items" nbContextMenuTag="export-menu" class="export">Export Report</button>
+  </div>
+</div> <!-- Closes top action button -->
+<ng-template #manifestTemplate let-data>
+  <ngx-codemirror #codeMirror [options]="codeMirrorOptions" [(ngModel)]="data.text">
+  </ngx-codemirror>
+</ng-template>
+<nb-sidebar tag="summary-right" class="info-sidebard" state="collapsed" right fixed>
+  <div class="section infos">
+    <div class="header">
+      <div (click)="toggleRight()" class="close">
+        <mat-icon aria-hidden="false">close</mat-icon>
+      </div>
+      <span>App Information</span>
+      <div class="line"></div>
+    </div>
+    <div class="content">
+      <div class="img-name">
+        <img src="http://192.168.2.169:8000{{ recentScan.icon_url }}">
+        <div class="app-name"><span>{{ recentScan.app_name }}</span></div>
+      </div>
+      <div class="app-infos-sidebar">
+        <div class="app-info-sidebar">
+          <div class="title"><span>App Name</span></div>
+          <div class="content"><span>{{ recentScan.app_name }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>File Name</span></div>
+          <div class="content"><span>{{ recentScan.app_name }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>File Size</span></div>
+          <div class="content"><span>{{ topInfo.size }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Package Name</span></div>
+          <div class="content"><span>{{ topInfo.package_name }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Main Activity</span></div>
+          <div class="content"><span>{{ topInfo.main_activity }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Target SDK</span></div>
+          <div class="content"><span>{{ topInfo.target_sdk }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Min SDK</span></div>
+          <div class="content"><span>{{ topInfo.min_sdk }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Max SDK</span></div>
+          <div class="content"><span>{{ topInfo.max_sdk }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Android Version Name</span></div>
+          <div class="content"><span>{{ topInfo.version_name }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Android Version Code</span></div>
+          <div class="content"><span>{{ topInfo.version_code }}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section appstore" *ngIf="topAppStoreInfo">
+    <div class="header">
+      <span>Playstore Information</span>
+      <div class="line"></div>
+    </div>
+    <div class="content">
+      <div class="img-name">
+      </div>
+      <div class="app-infos-sidebar general">
+        <div class="app-info-sidebar">
+          <div class="title"><span>Title</span></div>
+          <div class="content"><span>{{ topAppStoreInfo.title }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Score</span></div>
+          <div class="content"><span>{{ topAppStoreInfo.score }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Price</span></div>
+          <div class="content"><span>{{ topAppStoreInfo.price }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Category</span></div>
+          <div class="content"><span>{{ topAppStoreInfo.category }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Play Store URL</span></div>
+          <div class="content"><span>{{ topAppStoreInfo.url }}</span></div>
+        </div>
+      </div>
+      <div class="app-infos-sidebar dev">
+        <div class="app-info-sidebar">
+          <div class="title"><span>Developer</span></div>
+          <div class="content"><span>{{ topAppStoreInfo.developer }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Developer ID</span></div>
+          <div class="content"><span>{{ topAppStoreInfo.developerId }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Developer Address</span></div>
+          <div class="content"><span>{{ topAppStoreInfo.developerAddress }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Developer Website</span></div>
+          <div class="content"><span>{{ topAppStoreInfo.developerWebsite }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Developer Email</span></div>
+          <div class="content"><span>{{ topAppStoreInfo.developerEmail }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Release Date</span></div>
+          <div class="content"><span>{{ topAppStoreInfo.released }}</span></div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Privacy Policy</span></div>
+          <div class="content"><a href="{{ topAppStoreInfo.privacyPolicy }}">{{ topAppStoreInfo.privacyPolicy }}</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section certif">
+    <div class="header">
+      <span>Signer Certificate</span>
+      <div class="line"></div>
+    </div>
+    <div class="content">
+      <div class="img-name">
+      </div>
+      <div class="app-infos-sidebar">
+        <div class="app-info-sidebar">
+          <div class="app-encryp"><span>SHA512</span></div>
+          <div class="app-encryp"><span>SHA256</span></div>
+          <div class="app-encryp"><span>SHA1</span></div>
+          <div class="app-encryp"><span>MD5</span></div>
+        </div>
+
+        <div class="app-info-sidebar" *ngFor="let item of certificate_info | keyvalue">
+            <div class="title remove-weight"><span>{{item.key}}</span></div>
+            <div class="content"><span>{{item.value}}</span></div>
+        </div>
+
+<!--        <div class="app-info-sidebar">-->
+<!--          <div class="title remove-weight"><span>APK is signed</span></div>-->
+<!--          <div class="content"><span>{{ signerCertificate.certificate_info }}</span></div>-->
+<!--        </div>-->
+<!--        <div class="app-info-sidebar">-->
+<!--          <div class="title remove-weight"><span>v1 signature: True</span></div>-->
+<!--          <div class="content"><span>App Name</span></div>-->
+<!--        </div>-->
+<!--        <div class="app-info-sidebar">-->
+<!--          <div class="title remove-weight"><span>v2 signature: False</span></div>-->
+<!--          <div class="content"><span>App Name</span></div>-->
+<!--        </div>-->
+<!--        <div class="app-info-sidebar">-->
+<!--          <div class="title remove-weight"><span>v3 signature: False</span></div>-->
+<!--          <div class="content"><span>App Name</span></div>-->
+<!--        </div>-->
+<!--        <div class="app-info-sidebar">-->
+<!--          <div class="title remove-weight"><span>Found 1 unique certificates</span></div>-->
+<!--          <div class="content"><span>App Name</span></div>-->
+<!--        </div>-->
+        <div class="clear"></div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Certificate Status</span></div>
+          <div class="content">
+            <div class="button-desc {{ signerCertificate.certificate_status }}"><span>{{ signerCertificate.certificate_status }}</span></div>
+          </div>
+        </div>
+        <div class="app-info-sidebar">
+          <div class="title"><span>Description</span></div>
+          <div class="content"><span>{{ signerCertificate.description }}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nb-sidebar><!-- Closes top application report -->
+<!-- Code java smali download right upper -->
+<nb-sidebar tag="java-right" class="info-sidebard" state="collapsed" *ngIf="checkSystem" right fixed>
+  <div class="section infos">
+    <div class="header">
+      <div (click)="toggleRightJava()" class="close">
+        <mat-icon aria-hidden="false">close</mat-icon>
+      </div>
+      <span>Java Classe</span>
+      <div class="line"></div>
+    </div>
+    <div class="content">
+      <table mat-table [dataSource]="dataSourceJava" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="file">
+          <th mat-header-cell *matHeaderCellDef> Files </th>
+          <td mat-cell *matCellDef="let element"> {{element.file}} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsJava"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsJava;"></tr>
+      </table>
+
+    </div>
+  </div>
+</nb-sidebar>
+<nb-sidebar tag="samali-right" class="info-sidebard" state="collapsed" *ngIf="checkSystem" right fixed>
+  <div class="section infos">
+    <div class="header">
+      <div (click)="toggleRightSamali()" class="close">
+        <mat-icon aria-hidden="false">close</mat-icon>
+      </div>
+      <span>Smali Code</span>
+      <div class="line"></div>
+    </div>
+    <div class="content">
+      <table mat-table [dataSource]="dataSourceSmali" class="mat-elevation-z8">
+        <ng-container matColumnDef="file">
+          <th mat-header-cell *matHeaderCellDef> Files </th>
+          <td mat-cell *matCellDef="let element"> {{element.file}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsJava"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsJava;"></tr>
+      </table>
+
+    </div>
+  </div>
+</nb-sidebar>
+<div class="backdrop" (click)="toggleRightSamali()" *ngIf="backdropSamali"></div>
+<div class="backdrop" (click)="toggleRightJava()" *ngIf="backdropJava"></div>
+<div class="backdrop" (click)="toggleRight()" *ngIf="backdrop"></div>
+<div *ngIf="!interactif" class="row">
+  <div class="col-9">
+    <nb-card>
+      <div class="row">
+        <div class="col-md-2">
+          <div class="app-logo-container">
+            <div class="app-logo">
+              <img src="http://192.168.2.169:8000{{ recentScan.icon_url }}">
+              <div class="app-name"><span>{{ recentScan.app_name }}</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="app-infos-container">
+
+            <div class="app-infos">
+              <div class="app-info">
+                <div class="title">File Name</div>
+              </div>
+              <div class="app-info">
+                <div class="title">System</div>
+
+              </div>
+              <div class="app-info">
+                <div class="title">Date</div>
+              </div>
+              <div class="app-info" *ngIf="checkSystem">
+                <div class="title">Certificat Status</div>
+              </div>
+            </div>
+            <div class="app-infos">
+              <div class="app-info">
+                <div class="content">
+                  <div *ngIf="!hoverFileName" class="content">{{ recentScan.file_name }}</div>
+                  <div *ngIf="hoverFileName" nbTooltip="{{ showHover }}" class="content">{{ recentScan.file_name }}</div>
+                </div>
+              </div>
+              <div class="app-info">
+                <div class="content">
+                  <mat-icon aria-hidden="false">{{ recentScan.system }}</mat-icon>
+                </div>
+              </div>
+              <div class="app-info">
+                <div class="content">
+                  {{ recentScan.date }}
+                </div>
+              </div>
+              <div class="app-info">
+                <button class="{{ signerCertificate.certificate_status }}" *ngIf="checkSystem">{{ signerCertificate.certificate_status }}</button>
+                <div (click)="toggleRight()" class="more-app-info"><span>More app info</span>
+                  <mat-icon aria-hidden="false">play_arrow</mat-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-4">
+          <div class="chart-container">
+            <div class="chart">
+              <div class="chart-spans">
+                <div class="chart-span"><span>{{ recentScan.cvss_score }}</span></div>
+                <div class="cvss"><span>CVSS</span></div>
+              </div>
+              <ngx-charts-pie-chart [scheme]="colorScheme" [view]="view" [doughnut]="true" [results]="recentScan.charts">
+              </ngx-charts-pie-chart>
+              <div class="chart-infos">
+                <div nbTooltip="High" class="chart-info">
+                  <div class="circle high"></div>
+                  <div class="sev">High</div>
+                </div>
+                <div nbTooltip="Medium" class="chart-info">
+                  <div class="circle medium"></div>
+                  <div class="sev">Medium</div>
+                </div>
+                <div nbTooltip="Low" class="chart-info">
+                  <div class="circle low"></div>
+                  <div class="sev">Low</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+  <div class="col-3">
+    <nb-card class="decompile-card">
+      <div class="decompile-contain">
+        <div class="decompile-container">
+          <div class="decompile-title">
+            <h3>Decompiled Code</h3>
+          </div>
+          <div class="decompile">
+            <div class="decompiled-container">
+              <div class="decompiled">
+                <div class="decompiled-title"><span>Java</span></div>
+                <div class="decompiled-title"><span>Samali</span></div>
+              </div>
+              <div class="decompiled">
+                <div class="decompiled-actions">
+                  <img class="img-search" src="source/images/search.png">
+                  <div class="span-search" (click)="toggleRightJava()"><span>View</span></div>
+                  <img class="img-download" src="source/images/download.png">
+                  <div class="span-download" (click)="saveFile('java')"><span>Download</span></div>
+                </div>
+                <div class="decompiled-actions">
+                  <img class="img-search" src="source/images/search.png">
+                  <div class="span-search" (click)="toggleRightSamali()"><span>View</span></div>
+                  <img class="img-download" src="source/images/download.png">
+                  <div class="span-download" (click)="saveFile('smali')"><span>Download</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="decompile-footer">
+            <div class="decompile-button-container">
+              <div (click)="openManfistWindow()" class="decompile-button">
+                <span>View AndroidManifest.xml</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>
